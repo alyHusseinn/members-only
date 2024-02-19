@@ -1,7 +1,7 @@
 // src/index.js
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import '../db';
+import './db';
 
 dotenv.config();
 
