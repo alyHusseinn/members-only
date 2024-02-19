@@ -8,24 +8,23 @@
  */
 
 import { Router } from 'express';
+import * as clubControllers from '../controllers/club';
 
 const router = Router();
 
 // get all clubs
-router.get('/');
+router.get('/', clubControllers.getAllClubs);
 
 // GET specified club
-router.get('/:id');
+router.get('/:id', clubControllers.getClub);
 
 // POST new club
-router.post('/');
+router.post('/', clubControllers.create_club);
 
 // DELETE specified club
-router.delete('/:id');
+router.delete('/:id', clubControllers.delete_club);
 
 // PUT 'UPDATE' club
-router.put('/:id');
-
-router.use('/clubs');
+router.put('/:id', clubControllers.update_club);
 
 export default router;
