@@ -1,5 +1,5 @@
 import { NextFunction, Response, Request } from 'express';
-import User from '../db/models/user';
+import User from '../models/user';
 
 // get all users
 // get user:id

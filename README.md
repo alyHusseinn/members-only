@@ -1,5 +1,10 @@
 # Members only!
 
+### Introduction
+In this project you’ll be building an exclusive clubhouse where your members can write anonymous posts. Inside the clubhouse, members can see who the author of a post is, but outside they can only see the story and wonder who wrote it.
+
+This will be a chance for you to use the authentication skills we learned in the last project, you will also be practicing your database skills so buckle up!
+
 - Begin by thinking about how to set up the database models you are going to need to accomplish your goal. You will need users with full-names (first and last), usernames (you can use email for this), passwords and membership-status. Users should be able to create messages that have a title, a timestamp and some text. Your database should keep track of who created each message.
 - Setup your database on Mongo and generate or otherwise create your project skeleton, including the models you designed in the last step.
 - Start with a sign-up form so you can get some users into your DB! Don’t forget to sanitize and validate the form fields and secure the passwords with bcrypt. You should add a confirmPassword field to your sign-up form and then validate it using a custom validator. Read how to do that here.

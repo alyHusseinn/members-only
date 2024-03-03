@@ -1,9 +1,8 @@
 import mongoose from 'mongoose';
-import 'dotenv/config';
-const MONGO_URL = process.env.MONGO_URL as string;
+import ENV from './env';
 
 mongoose
-  .connect(MONGO_URL)
+  .connect(ENV.MONGO_URL!)
   .then(() => {
     console.log('Connect to MongoDB has been established successfully');
   })

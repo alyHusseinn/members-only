@@ -1,4 +1,4 @@
-import Post from '../db/models/post';
+import Post from '../models/post';
 import { Request, Response, NextFunction } from 'express';
 
 const getAllPosts = (req: Request, res: Response, next: NextFunction) => {

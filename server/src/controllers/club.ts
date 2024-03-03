@@ -1,4 +1,4 @@
-import Club from '../db/models/club';
+import Club from '../models/club';
 import { Request, Response, NextFunction } from 'express';
 
 const getAllClubs = (req: Request, res: Response, next: NextFunction) => {
