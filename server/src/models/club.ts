@@ -6,6 +6,7 @@ const ClubSchema = new Schema({
   title: {
     type: String,
     required: true
+    // unique: [true, 'This Name is already Exist!']
   },
   descreption: {
     type: String
