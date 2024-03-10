@@ -1,8 +1,15 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const PostSchema = new Schema({
+interface PostDocument extends Document {
+  title: string;
+  content: string;
+  club: mongoose.Types.ObjectId;
+  author: mongoose.Types.ObjectId;
+}
+
+const PostSchema = new Schema<PostDocument>({
   title: {
     type: String,
     required: true
@@ -11,8 +18,8 @@ const PostSchema = new Schema({
     type: String,
     required: true
   },
-  club: { type: mongoose.Types.ObjectId, ref: 'club', required: true },
-  author: { type: mongoose.Types.ObjectId, ref: 'user' }
+  club: { type: Schema.Types.ObjectId, ref: 'club', required: true },
+  author: { type: Schema.Types.ObjectId, ref: 'user', required: true }
 });
 
 export default mongoose.model('post', PostSchema);

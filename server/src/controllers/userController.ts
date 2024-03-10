@@ -18,7 +18,7 @@ const getUser = asyncHandler(async (req: Request, res: Response, next: NextFunct
   }
 });
 
-const create_user = [
+const createUser = [
   body('first_name').trim().escape().isLength({ min: 5 }).withMessage('First Name should be at least 5 characters'),
   body('last_name').trim().escape().isLength({ min: 5 }).withMessage('Last Name should be at least 5 characters'),
   body('username').trim().isLength({ min: 10 }).withMessage('Username should be at least 10 characters!'),
@@ -27,24 +27,27 @@ const create_user = [
   asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      throw new ClientError('Missing fields');
-    } else {
-      const newUser = new User({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username: req.body.username,
-        password: req.body.password
-      });
+      throw new ClientError(
+        errors
+          .array()
+          .map((err) => err.msg)
+          .join(', ')
+      );
+    }
 
-      await newUser
-        .save()
-        .then(() => res.status(200).send('New user created successfully!'))
-        .catch((err) => next(err));
+    const { first_name, last_name, username, password } = req.body;
+
+    try {
+      const newUser = new User({ first_name, last_name, username, password });
+      await newUser.save();
+      res.status(201).json({ sucess: true, message: 'New user created successfully', user: newUser });
+    } catch (error) {
+      next(error);
     }
   })
 ];
 
-const update_user = [
+const updateUser = [
   body('first_name').trim().escape().isLength({ min: 5 }).withMessage('First Name should be at least 5 characters'),
   body('last_name').trim().escape().isLength({ min: 5 }).withMessage('Last Name should be at least 5 characters'),
   body('username').trim().isLength({ min: 10 }).withMessage('Username should be at least 10 characters!'),
@@ -53,24 +56,27 @@ const update_user = [
   asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      throw new ClientError('Missing fields');
+      throw new ClientError(
+        errors
+          .array()
+          .map((err) => err.msg)
+          .join(', ')
+      );
     } else {
-      const newUser = new User({
-        _id: req.params.id, // to avoid create another _id
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username: req.body.username,
-        password: req.body.password
-      });
+      const { first_name, last_name, username, password, id } = req.body;
+      const newUser = new User({ _id: id, username, first_name, last_name, password });
 
-      await User.findByIdAndUpdate(req.params.id, newUser, {})
-        .then(() => res.status(200).send('User Update Successfully'))
-        .catch((err) => next(err));
+      try {
+        await User.findByIdAndUpdate(req.params.id, newUser, {});
+        res.status(200).json({ success: true, message: 'User updated successfully', user: newUser });
+      } catch (err) {
+        next(err);
+      }
     }
   })
 ];
 
-const delete_user = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+const deleteUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
   const user = await User.findById(req.params.id);
 
   if (!user) {
@@ -82,4 +88,4 @@ const delete_user = asyncHandler(async (req: Request, res: Response, next: NextF
   }
 });
 
-export { getAllUsers, getUser, create_user, delete_user, update_user };
+export { getAllUsers, getUser, createUser, deleteUser, updateUser };
