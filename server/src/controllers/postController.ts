@@ -1,6 +1,7 @@
 import Post from '../models/post';
 import { Request, Response, NextFunction } from 'express';
 
+// Takes :id, :clubId to identify the post
 const getAllPosts = (req: Request, res: Response, next: NextFunction) => {
   //
 };
