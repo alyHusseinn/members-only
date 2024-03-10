@@ -1,5 +1,6 @@
 import { NextFunction, Response, Request } from 'express';
 import User from '../models/user';
+import { asyncHandler } from 'middlewares/asyncHandler';
 
 // get all users
 // get user:id
@@ -12,10 +13,14 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   res.json(users);
 };
 
-const getUser = async (req: Request, res: Response, next: NextFunction) => {
-  const userData = await User.findById(req.params.id);
-  res.json(userData);
-};
+const getUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  // const user = await User.findById(req.params.id);
+  // if (!user) {
+  //   next(new Error('This user does not exist'));
+  // }else {
+
+  // }
+});
 
 const create_user = async (req: Request, res: Response, next: NextFunction) => {
   // check if that userName exist Return with invalid userName
