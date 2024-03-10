@@ -8,7 +8,7 @@
  */
 
 import { Router } from 'express';
-import * as clubControllers from '../controllers/club';
+import * as clubControllers from '../controllers/clubController';
 
 const router = Router();
 
